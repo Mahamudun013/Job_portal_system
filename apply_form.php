@@ -65,7 +65,9 @@
 
       
 
-      <li><a href="user_home.php"><span class="glyphicon glyphicon-search"></span> Apply Job</a></li>
+      <li><a href="interview_invitation.php"><span class="glyphicon glyphicon-envelope"></span> Invitation</a></li>
+
+      <li><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> CV</a></li>
       
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" 
         href="#"><?php echo $_SESSION['username'];?> &nbsp<span class="caret"></span></a>
@@ -135,7 +137,9 @@
             </div>
             <div class="form-group">        
               <div class="col-sm-offset-4 col-sm-6">
-                <button type="submit" class="btn btn-primary" name="job_apply">Apply</button>
+                <button type="submit" class="btn btn-primary" name="job_apply">Apply</button>&nbsp&nbsp&nbsp
+                <a href="user_home.php" class="btn btn-primary" name="close">Close</a>
+
               </div>
             </div>
           </form>
@@ -156,13 +160,14 @@
       $position=$_POST['position'];
       $Salary=$_POST['expected_salary'];
 
-      // echo $applicant."<br>".$company."<br>".$position."<br>".$Salary;
+      
       $query="INSERT INTO apply_table(applicant_name,company_name,position_name,expected_salary) VALUES('$applicant','$company','$position','$Salary')";
       $run=mysqli_query($connect,$query);
       if(!$run){
         echo "<script>alert('Application Not Submitted')</script>";
         echo "<script>location='user_home.php'</script>";
-      }else{
+      }
+      else{
         echo "<script>alert('Application Successfully Submitted')</script>";
         echo "<script>location='user_home.php'</script>";
       }

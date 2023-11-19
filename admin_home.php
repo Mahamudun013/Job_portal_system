@@ -16,6 +16,49 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    
+#tbl1{
+  border: 1px solid  #45AEF0;
+  float: left;
+  background-color: #45AEF0 ;
+  min-height: 400px;
+  margin-right: 20px;
+}
+#tbl1 a{
+  text-decoration: none;
+  padding: 0px;
+  margin: 0px;
+  font-size: 20px;
+  color: white;
+}
+#tbl1 a:hover{
+  /*color:red;*/
+  color: #EA5200;
+  display: inline-block;
+  }
+  
+#tbl2{
+  
+  width: 80%;
+}
+table th,td,tr{
+    text-align: center;
+}
+.jumbotron{
+  min-height: 700px;
+}
+.active{
+  color: white;
+  background-color: #C84040;
+
+}
+
+#dash{
+  color:#C01717;
+}
+
+</style>
 </head>
 <body>
 
@@ -42,23 +85,39 @@
 
     </ul>
 
-
   </div>
 </nav>
 
-        <h2 style="text-align: center;
-        color: blue;"> Admin Access Panel </h2>
-
-	
-
-
-	<h2 style="text-align: center;">Welcome <?php echo $_SESSION['adminName'];?> </h2>
-  
+       
   <div class="container">
-
-   <div class="col-md-10 col-md-offset-1">
     <div class="jumbotron">
-      <table class="table table-hover table-bordered">
+
+       <h2 style="text-align: center;color: blue;"> Admin Access Panel </h2>
+
+      <h2 style="text-align: center;">Welcome ! <?php echo $_SESSION['adminName'];?> </h2><br>
+
+            <table id="tbl1" width="15%" >
+              <tr>
+                <td valign="top">
+
+                  <h3 id="dash">Dashboard</h3><hr>
+                  <a href="admin_home.php" class="active">All Jobs</a><br>
+                  <a href="employer_list.php">All Employers</a><br>
+                  <a href="user_list.php">All Users</a><br>
+      
+                  <!-- <a href="functions.php?adminName=<?php //echo $_SESSION['adminName'];?> "><span class="glyphicon glyphicon-log-out"></span></a> <br>    -->
+
+                </td>
+                
+              </tr>
+             </table>
+
+
+
+   <!-- <div class="col-md-10 col-md-offset-1"> -->
+
+    
+      <table id="tbl2" class="table table-hover table-bordered" width="50%">
         <thead >
           <th>Serial</th>
           <th>Company Name</th>
@@ -97,10 +156,11 @@
         }
       }
       ?>
+
       </table>
     </div>
      
-   </div>
+   <!-- </div> -->
   
   </div>
 

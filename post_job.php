@@ -20,6 +20,7 @@
   <script>tinymce.init({ selector:'textarea' });</script>
  <style>
    .error {color: #FF0000;}
+
   </style>
 
 </head>
@@ -37,9 +38,7 @@
        <a class="navbar-brand" href="#">JOBSITE.COM</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">My Post</a></li>
-
-      
+      <li><a href="my_post.php">My Post</a></li>    
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
@@ -62,146 +61,67 @@
 
 
 
-
-
-
 <?php
 
      
-    $position_name=$company_name=$job_category=$vacancy=$job_responsibility
-    =$job_nature=$job_requirements=$educational_requirements=$experience_requirements=$last_date_Of_application=$job_location=$salary_range="";
+  $position_name=$company_name=$job_category=$vacancy=$job_responsibility=$job_nature=$job_requirements
+  =$educational_requirements=$experience_requirements=$last_date_Of_application=$job_location=$salary_range="";
 
 
-$position_nameErr=$company_nameErr=$job_categoryErr=$vacancyErr=$job_responsibilityErr
-=$job_natureErr=$job_requirementsErr=$educational_requirementsErr=
-$experience_requirementsErr=$last_date_Of_applicationErr=$job_locationErr=$salary_rangeErr="";
+$position_nameErr=$company_nameErr=$job_categoryErr=$vacancyErr=$job_responsibilityErr=$job_natureErr=
+$job_requirementsErr=$educational_requirementsErr=$experience_requirementsErr=$last_date_Of_applicationErr
+=$job_locationErr=$salary_rangeErr="";
 
 
-
-    
-    
-//if($_SERVER["REQUEST_METHOD"] == "POST")
    
    if(isset($_POST["submit"]))
    {
+
+    include('database.php');  //$connect database
         
-        if (empty($_POST["position_name"]))
-         {
-           $position_nameErr = "Position name is required";
-         } 
-        else 
-        {
-           $position_name = test_input($_POST["position_name"]);
-        }
+        
+         $position_name = test_input($_POST["position_name"]);
+          
 
+         $company_name = test_input($_POST["company_name"]);
+       
 
-         if (empty($_POST["company_name"]))
-         {
-           $company_nameErr = "Company name is required";
-         } 
-        else 
-        {
-           $company_name = test_input($_POST["company_name"]);
-        }
+         
+        $job_category = test_input($_POST["job_category"]);
+        
 
+         
+        $vacancy = test_input($_POST["vacancy"]);
+        
+    
+     //  $job_responsibility = test_input($_POST["job_responsibility"]);
+    $job_responsibility =mysqli_real_escape_string($connect, $_POST['job_responsibility']);
+    
 
-         if (empty($_POST["job_category"]))
-         {
-           $job_categoryErr = "Job category is required";
-         } 
-        else 
-        {
-           $job_category = test_input($_POST["job_category"]);
-        }
+         
+        $job_nature = test_input($_POST["job_nature"]);
+      
 
-         if (empty($_POST["vacancy"]))
-         {
-           $vacancyErr = " Vacancy is required";
-         } 
-        else 
-        {
-           $vacancy = test_input($_POST["vacancy"]);
-        }
+        
+     // $job_requirements = test_input($_POST["job_requirements"]);
+      $job_requirements =mysqli_real_escape_string($connect, $_POST['job_requirements']);
+        
+     
+        $educational_requirements = test_input($_POST["educational_requirements"]);
+        
 
+        $experience_requirements = test_input($_POST["experience_requirements"]);
+        
 
-        if (empty($_POST["job_responsibility"]))
-         {
-           $job_responsibilityErr = " Job responsibility is required";
-         } 
-        else 
-        {
-           $job_responsibility = test_input($_POST["job_responsibility"]);
-        }
+        $last_date_Of_application = test_input($_POST["last_date_Of_application"]);
+      
 
-         if (empty($_POST["job_nature"]))
-         {
-           $job_natureErr = "Job nature is required";
-         } 
-        else 
-        {
-           $job_nature = test_input($_POST["job_nature"]);
-        }
+         $job_location = test_input($_POST["job_location"]);
+        
 
-        if (empty($_POST["job_requirements"]))
-         {
-           $job_requirementsErr = " Job requirements is required";
-         } 
-        else 
-        {
-           $job_requirements = test_input($_POST["job_requirements"]);
-        }
-
-
-        if (empty($_POST["educational_requirements"]))
-         {
-           $educational_requirementsErr = "Educational requirements is required";
-         } 
-        else 
-        {
-           $educational_requirements = test_input($_POST["educational_requirements"]);
-        }
-
-
-        if (empty($_POST["experience_requirements"]))
-         {
-           $experience_requirementsErr = "Experience requirements is required";
-         } 
-        else 
-        {
-           $experience_requirements = test_input($_POST["experience_requirements"]);
-        }
-
-        if (empty($_POST["last_date_Of_application"]))
-         {
-           $last_date_Of_applicationErr = "Last date Of application is required";
-         } 
-        else 
-        {
-           $last_date_Of_application = test_input($_POST["last_date_Of_application"]);
-        }
-
-
-        if (empty($_POST["job_location"]))
-         {
-           $job_locationErr = "Job location is required";
-         } 
-        else 
-        {
-           $job_location = test_input($_POST["job_location"]);
-        }
-
-
-         if (empty($_POST["salary_range"]))
-         {
-           $salary_rangeErr = "Salary range is required";
-         } 
-        else 
-        {
-           $salary_range = test_input($_POST["salary_range"]);
-        }
-
-
-    }
+         $salary_range = test_input($_POST["salary_range"]);
+    
+}
 
 
    function test_input($data) 
@@ -216,60 +136,51 @@ $experience_requirementsErr=$last_date_Of_applicationErr=$job_locationErr=$salar
 ?>
 
 <?php 
+
 if(isset($_POST["submit"]))
 {
+      
+      include('database.php');  //$connect database
 
 
- $conn= mysqli_connect("localhost","root","","job_site");
-
-  if($conn)
+  if($connect)
   {
 
      // echo "Database Connected"."<br><br>";
     
-       $sql="INSERT INTO all_jobs(position_name,company_name,job_category,vacancy,job_responsibility,job_nature,job_requirments,educational_requirements,experience_requirement,last_date_of_apply,job_location,salary_rang) VALUES('$position_name','$company_name','$job_category','$vacancy','$job_responsibility','$job_nature','$job_requirements','$educational_requirements','$experience_requirements','$last_date_Of_application','$job_location','$salary_range') ";
+       $sql="INSERT INTO all_jobs(position_name,company_name,job_category,vacancy,job_responsibility,job_nature,
+       job_requirments,educational_requirements,experience_requirement,last_date_of_apply,job_location,salary_rang) VALUES('$position_name','$company_name','$job_category','$vacancy','$job_responsibility','$job_nature',
+       '$job_requirements','$educational_requirements','$experience_requirements','$last_date_Of_application',
+        '$job_location','$salary_range') ";
 
 
   
-     $insert=mysqli_query($conn,$sql);
-
+        $insert=mysqli_query($connect,$sql);
+ 
 
 
 
 
   
-    if($insert)
-    {
-         // echo "Data Inserted"."<br>";
-    }
-    else
-    {
+          if($insert)
+          {
+               
+               echo '<script>alert("Congrates ! Job posted Successfully.") </script>';
+          }
+          else
+          {
 
-       //echo "Data NOT inserted"."<br>";
-    }
-
-
-
-    if(!$insert){
-
-        echo "<script>alert('Job Post Not Submitted')</script>";
-       
-      }
-      else
-      {
-        echo "<script>alert('Posted  Successfully')</script>";
-      }
-  
+              echo '<script>alert("Sorry ! Submission Unsuccessfully.") </script>';
+          }
   
   }
 
 
-  mysqli_close($conn);
+  mysqli_close($connect);
 
 }
+
 ?>
-
-
 
 
 
@@ -277,31 +188,39 @@ if(isset($_POST["submit"]))
     <h1 class="well">Job Post Form</h1>
   <div class="col-lg-12 well">
   <div class="row">
-        <form action="" method="post">
+        <form  method="post">
           <div class="col-sm-12">
-
-
 
             <div class="form-group">
              <label>Position Name</label><span class="error">* <?php echo $position_nameErr;?></span>
-             <input type="text" placeholder="Enter Position Name Here.." class="form-control" name="position_name">
+             <input type="text" placeholder="Enter Position Name Here.." class="form-control" 
+             name="position_name" required>
              </div>    
             <div class="form-group">
               <label>Company Name</label><span class="error">* <?php echo $company_nameErr;?></span>
-              <input type="text" placeholder="Enter Company Name Here.." class="form-control" name="company_name">
+              <input type="text" placeholder="Enter Company Name Here.." class="form-control" 
+              name="company_name"  required>
             </div> 
 
             <div class="form-group">
               <label>Job Category<small> (select one)</small></label><span class="error">* <?php echo $job_categoryErr;?></span>
-             <select class="form-control" id="select" placeholder="Enter Job Type Here.."  name="job_category">
+             <select class="form-control" id="select" placeholder="Enter Job Type Here.."  
+              name="job_category"  required>
                 <option></option>
                 <option>Bank</option>
                 <option>IT</option>
+                <option>Engineering</option>
                 <option>Garments</option>
                 <option>Industry</option>
                 <option>Hospital</option>
+                <option>NGO</option>
                 <option>Education</option>
-                <option>Engineering</option>
+                <option>Commercial</option>
+                <option>Accounting</option>
+                <option>Support</option>
+                <option>Marketing</option>
+                <option>Others</option>
+                
               </select>
              </div> 
 
@@ -309,83 +228,71 @@ if(isset($_POST["submit"]))
 
              <div class="form-group">
              <label>Vacancy</label><span class="error">* <?php echo $vacancyErr;?></span>
-             <input type="text" placeholder="Enter Vacancy Here.." class="form-control" name="vacancy">
+             <input type="text" placeholder="Enter Vacancy Here.." class="form-control" 
+             name="vacancy"  required>
              </div>
 
 
               <div class="form-group">
               <label>Job Responsibility</label><span class="error">* <?php echo $job_responsibilityErr;?></span>
-              <textarea placeholder="Enter Job Responsibility Here.." rows="3" class="form-control" name="job_responsibility"></textarea>
+              <textarea placeholder="Enter Job Responsibility Here.." rows="3" class="form-control" 
+              name="job_responsibility"></textarea>
             </div>
 
 
              <div class="form-group">
              <label>Job Nature</label><span class="error">* <?php echo $job_natureErr;?></span>
-             <input type="text" placeholder="Enter Job Nature Here.." class="form-control" name="job_nature">
+             <input type="text" placeholder="Enter Job Nature Here.." class="form-control" 
+             name="job_nature" required>
              </div>
 
             <div class="form-group">
               <label>Job Requirements</label><span class="error">* <?php echo $job_requirementsErr;?></span>
-              <textarea placeholder="Enter Job Requirements Here.." rows="3" class="form-control" name="job_requirements"></textarea>
+              <textarea placeholder="Enter Job Requirements Here.." rows="3" class="form-control"
+               name="job_requirements"></textarea>
             </div>
 
             
 
             <div class="form-group">
              <label>Educational Requirements</label><span class="error">* <?php echo $educational_requirementsErr;?></span>
-             <input type="text" placeholder="Enter Educational Requirements Here.." class="form-control" name="educational_requirements">
+             <input type="text" placeholder="Enter Educational Requirements Here.." class="form-control" 
+             name="educational_requirements" required>
              </div>  
 
             <div class="form-group">
               <label>Experience Requirements</label><span class="error">* <?php echo $experience_requirementsErr;?></span>
-              <input type="text" placeholder="Enter Experience Requirements Here.." class="form-control" name="experience_requirements">
+              <input type="text" placeholder="Enter Experience Requirements Here.." class="form-control" 
+              name="experience_requirements"  required>
             </div>  
 
             <div class="form-group">
               <label>Last Date Of Application</label><span class="error">* <?php echo $last_date_Of_applicationErr;?></span>
-              <input type="date" placeholder="Enter Last Date Of Application Here.." class="form-control" name="last_date_Of_application">
+              <input type="date" placeholder="Enter Last Date Of Application Here.." class="form-control" 
+              name="last_date_Of_application">
             </div>  
 
 
 
             <div class="form-group">
               <label>Job Location</label><span class="error">* <?php echo $job_locationErr;?></span>
-              <input type="text" placeholder="Enter Job Location Here.." class="form-control" name="job_location">
+              <input type="text" placeholder="Enter Job Location Here.." class="form-control" 
+              name="job_location" required>
             </div>  
 
             <div class="form-group">
               <label>Salary Range</label><span class="error">* <?php echo $salary_rangeErr;?></span>
-              <input type="text" placeholder="Enter Salary Range Here.." class="form-control" name="salary_range">
+              <input type="text" placeholder="Enter Salary Range Here.." class="form-control" 
+              name="salary_range" required>
             </div>
 
-             <button type="submit" class="btn btn-default" name="submit">Submit</button>    
+             <button type="submit" class="btn btn-primary" name="submit">Submit</button>&nbsp&nbsp&nbsp&nbsp
+             <button type="reset" class="btn btn-danger" name="reset">Reset</button>    
           </div>
         </form> 
         </div>
   </div>
   </div>
-
-
-
-<?php
-
-    /*      echo  "Name: ".$position_name."<br>" ;
-          echo  "Name: ".$company_name."<br>";
-          echo  "Name: ".$job_category."<br>";
-          echo  "Name: ".$vacancy."<br>";
-          echo  "Name: ".$job_responsibility."<br>";
-          echo  "Name: ".$job_nature."<br>";
-          echo  "Name: ".$job_requirements."<br>";
-          echo  "Name: ".$educational_requirements."<br>";
-          echo  "Name: ".$experience_requirements."<br>";
-          echo  "Name: ".$last_date_Of_application."<br>";
-          echo  "Name: ".$job_location."<br>";
-          echo  "Name: ".$salary_range."<br>";
-
-*/
-
-?>
-
-
-
+  <?php include('footer.php'); ?> 
 </body>
+</html>

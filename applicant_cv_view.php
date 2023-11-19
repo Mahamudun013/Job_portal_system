@@ -60,17 +60,7 @@
    <div class="col-md-10 col-md-offset-1">
     <div class="jumbotron">
       <?php
-       //  applicant  information show
-
-          
-         /* if (isset($_GET['applicant_view_id'])) {
-            $id=$_GET['applicant_view_id'];
-            $q="SELECT applicant_name FROM apply_table WHERE id='$id'";
-            $r=mysqli_query($connect,$q);
-            // cv show from database
-
-          */
-
+       
 
 
             if (isset($_GET['appicant_username'])) {

@@ -21,6 +21,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  
 
  </head>
@@ -58,18 +61,20 @@
   .jumbotron {
       margin-bottom: 0;
     }
-	.modal-header, .a, .close {
-      background-color: #5cb85c;
-      color:white !important;
-      text-align: center;
-      font-size: 30px;
-  }
-  .modal-body{
-  color:black;
-  }
-  .modal-footer {
-      background-color: #f9f9f9;
-  }
+
+
+    .edit{
+      float:right;
+      width: 200px;
+    }
+
+    #img{
+      float:right;
+      margin-right: 100px;
+      margin-bottom: 8px;
+    }
+	
+  
  </style>
  
  <body>
@@ -84,6 +89,10 @@
     <div class="navbar-header">
        <a class="navbar-brand" href="#">JOBSITE.COM</a>
     </div>
+
+    <ul class="nav navbar-nav">
+      <li><a href="my_post.php">My Post</a></li>
+    </ul>
 
     
     <ul class="nav navbar-nav navbar-right">
@@ -106,12 +115,14 @@
   <?php
         echo "<div class='jumbotron'>
         <div class='container text-center'>
-             <h1>Hi,".$_SESSION['employer']."</h1><p>Member of Jobsite.com</p></div></div>";
+             <h1>Hi,".$_SESSION['employer']."</h1><p>Employer of Jobsite.com</p></div></div>";
   ?>
 
  <h3 class="al">Profile</h3>
  <div class="row content">
  
+  <div id="img"><img src="empImage/<?php echo $_SESSION['employer'];?>.jpg" height="300px" width="250px"/> </div>
+
  <div class="col-sm-8" id="ala2">
 <div class="cotainer text-center">
  <?php echo"<h3>".$_SESSION['employer']."</h3>"; ?>

@@ -9,7 +9,7 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 
-   <script>tinymce.init({ selector:'textarea' });</script>
+  <!--  <script>tinymce.init({ selector:'textarea' });</script> -->
 
 <style>
       .modal-header, .a , .close {
@@ -43,7 +43,7 @@
               </div>
               
               <ul class="nav navbar-nav">
-                <li class="active"><a href="view_alljobs.php">JOBS</a></li>
+                <li class="active"><a href="admin.php">Admin</a></li>
                 <li><a href="#"></a></li>
 
                   <form class="navbar-form navbar-left">   
@@ -162,7 +162,7 @@
 
 
 
-    <ul class="nav navbar-nav navbar-right">
+     <!-- <ul class="nav navbar-nav navbar-right">
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Create
               account<span class="caret" ></span> </a>
           <ul class="dropdown-menu">
@@ -170,7 +170,7 @@
              <li><a href="user_register.php">User account</a></li>
            </ul>
         </li>
-      </ul>
+      </ul> -->
 
     </div>
   </nav>

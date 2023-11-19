@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>User</title>
+  <title>Jobs</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -60,9 +60,9 @@
 
     <ul class="nav navbar-nav navbar-right">
 
-      
+      <li><a href="interview_invitation.php"><span class="glyphicon glyphicon-envelope"></span> Invitation</a></li>
 
-      <li><a href="user_home.php"><span class="glyphicon glyphicon-search"></span> Apply Job</a></li>
+      <li><a href="upload_cv.php"><span class="glyphicon glyphicon-plus-sign"></span> CV</a></li>
       
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" 
         href="#"><?php echo $_SESSION['username'];?> &nbsp<span class="caret"></span></a>
@@ -74,7 +74,7 @@
 
     </ul>
   </div>
-</nav>
+</nav>                
 
   <br>
   <br>

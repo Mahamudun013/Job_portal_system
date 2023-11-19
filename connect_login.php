@@ -25,7 +25,7 @@
         elseif (empty($_POST["username"])){
                 header("Location: index.php");
                 echo '<script type="text/javascript">'; 
-                echo 'alert("You need to login first!")'; 
+                echo 'alert("You need to login first!")';    
                 echo '</script>';
                 session_unset();
                 session_destroy();

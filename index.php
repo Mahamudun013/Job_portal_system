@@ -87,11 +87,22 @@
     .carousel-caption {
       display: none; 
     }
-    li{
+
+   .row ul a{
       list-style-type:none;
     }
 
 
+    .row li a{
+      list-style-type:none;
+    }
+
+body{
+  min-height: 600px;
+}
+ul{
+      list-style-type:none;
+    }
   </style>
 
 </head>
@@ -113,7 +124,7 @@
    <div class="carousel-inner" role="listbox">
      
        <div class="item active">
-          <img id="img2" src="http://localhost/jobsite_project/image/slideImage2.jpg" alt="Image">
+          <img id="img2" src="image/slideImage2.jpg" alt="Image">
           <div class="carousel-caption"> 
           </div>      
         </div>
@@ -133,12 +144,10 @@
 
         <div class="item">
           <img id="img6" src="image/slideImage6.jpg" alt="Image">
-          <div class="carousel-caption">
+           <div class="carousel-caption">
           
-          </div>      
-        </div>
-
-        
+           </div>      
+        </div> 
     
     </div>
 
@@ -173,33 +182,31 @@
 
     <div class="row">
         <div class="col-sm-4">
-          <ul>
-
-            <li><a href="#"><h3>>Accounting/Finance</h3></a></li>
-            <li><a href="bank.php"><h3>>Bank/Non-bank Fin.Institution</h3></a></li>
-            <li><a href="#"><h3>>Customer Support</h3></a></li>
-            <li><a href="#"><h3>>Driving/Motor Technician</h3></a></li>
-            <li><a href="#"><h3>>Education?Training</h3></a></li>            
+          <ul style="list-style-type: none;">
+            <li><a href="accounting_job.php"><h3>>Accounting/Finance</h3></a></li>
+            <li><a href="bank_job.php"><h3>>Bank/Non-bank</h3></a></li>
+            <li><a href="commercial_job.php"><h3>>Commercial/Supply</h3></a></li>
+            <li><a href="education_job.php"><h3>>Education/Training</h3></a></li>            
           </ul>        
         </div>
 
 
         <div class="col-sm-4"> 
-            <ul>
-              <li><a href="engineerings.php"><h3>>Engineering</h3></a></li>
-            <li><a href="it.php"><h3>>IT & Telecommunication</h3></a></li>
-            <li><a href="#"><h3>>Marketing/Sales</h3></a></li>
-            <li><a href="#"><h3>>NGO/Development</h3></a></li>                       
+           <ul style="list-style-type: none;">
+              <li><a href="engineering_job.php"><h3>>Engineering</h3></a></li>
+              <li><a href="it_job.php"><h3>>IT & Telecommunication</h3></a></li>
+              <li><a href="marketing_job.php"><h3>>Marketing/Sales</h3></a></li>
+              <li><a href="ngo_job.php"><h3>>NGO/Development</h3></a></li>                       
             </ul>               
         </div>
 
 
       <div class="col-sm-4">
-           <ul>
-            <li><a href="#"><h3>>Textile</h3></a></li>
-            <li><a href="#"><h3>>Garments/Textile</h3></a></li>
-            <li><a href="#"><h3>>Security/Support</h3></a></li>
-            <li><a href="#"><h3>>Others</h3></a></li>
+          <ul style="list-style-type: none;">
+              <li><a href="customer_support_job.php"><h3>>Customer support/Call center</h3></a></li>
+              <li><a href="garments_job.php"><h3>>Garments/Textile</h3></a></li>
+              <li><a href="industry_job.php"><h3>>Industry</h3></a></li>
+              <li><a href="others_job.php"><h3>>Others</h3></a></li>
           </ul>             
       </div>
 

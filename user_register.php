@@ -23,90 +23,67 @@
     $name=$username=$password=$confirmpassword=$jobcategory=$gender=$phonenumber
     =$email="";
 
-    $nameErr=$usernameErr=$passwordErr=$confirmpasswordErr=$jobcategoryErr=$genderErr=$phonenumberErr=$emailErr="";
       
-    
-//if($_SERVER["REQUEST_METHOD"] == "POST")
    
    if(isset($_POST["submit"]))
    {
         
-        if (empty($_POST["name"]))
-         {
-           $nameErr = "Name is required";
-         } 
-        else 
-        {
+       
            $name = test_input($_POST["name"]);
-        }
-		
-
-
-         if (empty($_POST["username"]))
-         {
-           $usernameErr = "Username is required";
-         } 
-        else 
-        {
+         
            $username = test_input($_POST["username"]);
-        }
-
-         if (empty($_POST["password"]))
-         {
-           $passwordErr = " Password is required";
-         } 
-        else 
-        {
+       
            $password = test_input($_POST["password"]);
-        }
+        
+           $confirmpassword = test_input($_POST["confirmpassword"]);  
 
-         if (empty($_POST["confirmpassword"]))
-         {
-           $confirmpasswordErr = " Confirm password is required";
-         } 
-        else 
-        {
-           $confirmpassword = test_input($_POST["confirmpassword"]);
-        }
+           if($password===$confirmpassword){
+
+           }else{
+             echo "<script> alert('Two password are not matched!')</script>";
+                   echo '<script>location="user_register.php"</script>';
+                   die();
+
+           }
 
 
-        if (empty($_POST["jobcategory"]))
-         {
-           $jobcategoryErr = " Job catagory is required";
-         } 
-        else 
-        {
            $jobcategory = test_input($_POST["jobcategory"]);
-        }
-		
-		  if (empty($_POST["gender"]))
-		  {
-           $genderErr = "Gender is required";
-         } 
-		 else
-	     {
+		  	  
            $gender = test_input($_POST["gender"]);
-       }
-
-
-        if (empty($_POST["phonenumber"]))
-         {
-           $phonenumberErr = "Phone number is required";
-         } 
-        else 
-        {
+       
            $phonenumber = test_input($_POST["phonenumber"]);
-        }
 
-
-         if (empty($_POST["email"]))
-         {
-           $emailErr = "Email is required";
-         } 
-        else 
-        {
            $email = test_input($_POST["email"]);
+        
+
+        $file=$_FILES['image'];
+
+        $proImage=$_FILES['image']['name'];
+        $fileTmpName=$_FILES['image']['tmp_name'];
+        $imageSize=$_FILES['image']['size'];
+
+             
+        $fileExt=explode(".", $proImage);
+        $fileActualExt=strtolower(end($fileExt));
+        $newImageName=$username.".".$fileActualExt;
+        $fileDes='userImage/'.$newImageName;
+
+        $valitExt=array('jpg');
+
+        if(in_array($fileActualExt, $valitExt) && $imageSize < 2000000)
+        {
+
+            move_uploaded_file($fileTmpName, $fileDes);
+
+
         }
+        else{
+                   echo "<script> alert('Please, upload valid image format !')</script>";
+                   echo '<script>location="user_register.php"</script>';
+                   die();
+
+        }
+
 
 
   }
@@ -121,145 +98,146 @@
    }
 
 
-?>
+ 
+    include('database.php');  // connect database
+
+    if(isset($_POST["submit"]))
+    {
 
 
-<?php 
+    if($connect)
+    {
 
-if(isset($_POST["submit"]))
- {
+        $checkName=$username;
+        $check=" SELECT * FROM user_table WHERE username='$checkName' " ;
 
+        $find=mysqli_query($connect,$check);
+        
+        if(mysqli_num_rows($find)>0){
 
-    $conn= mysqli_connect("localhost","root","","job_site");
+          echo '<script>alert("Sorry ! This username already exist. Use another one.") </script>';
+          echo '<script> location="user_register.php"</script>';
+        }
+        
 
-   if($conn)
-   {
-
-      //echo "Database Connected"."<br><br>";
     
-       $sql="INSERT INTO user_table( name,username,password,confirm_password,job_category,gender,phone_number,email) VALUES('$name','$username','$password','$confirmpassword','$jobcategory','$gender','$phonenumber','$email')";
+       $sql="INSERT INTO user_table( name,username,password,confirm_password,job_category,gender,phone_number,email,user_pic) VALUES('$name','$username','$password','$confirmpassword','$jobcategory','$gender','$phonenumber','$email','$fileDes')";
 
   
-     $insert=mysqli_query($conn,$sql);
+     $insert=mysqli_query($connect,$sql);
   
     if($insert)
     {
-        //  echo "Data Inserted"."<br>";
+          echo '<script>alert("Congratulations ! Successfully Registered.") </script>';
     }
     else
     {
 
-       //echo "Data NOT inserted"."<br>";
+       echo '<script>alert("Sorry ! Submission Unsuccessfully.") </script>'; 
     }
   
   
   }
 
 
-  mysqli_close($conn);
+  mysqli_close($connect);
 
 }
 ?>
-
-
 
 
 <div class="container">
     <h1 class="well">User Registration Form</h1>
   <div class="col-lg-12 well">
     <div class="row">
-       <form action="#" method="post">
+       <form action="#" method="post" enctype="multipart/form-data">
           <div class="col-sm-12">
 
               <div class="form-group">
-                <label>Name</label><span class="error">* <?php echo $nameErr;?></span>
-                <input type="text" placeholder="Enter Name Here.." class="form-control" name="name">
+                <label>Name</label><span class="error">*</span>
+                <input type="text" placeholder="Enter Name Here.." class="form-control" name="name" required>
               </div>
 
 
               <div class="form-group">
-                <label>Username</label><span class="error">* <?php echo $usernameErr ;?></span>
-                <input type="text" placeholder="Enter Username Here.." class="form-control" name="username">
+                <label>Username</label><span class="error">*</span>
+                <input type="text" placeholder="Enter Username Here.." class="form-control" 
+                name="username" required>
               </div>
             
 
 
             
               <div class="form-group">
-                <label>Password</label><span class="error">* <?php echo $passwordErr;?></span>
-                <input type="password" placeholder="Enter Password Here.." class="form-control" name="password">
+                <label>Password</label><span class="error">*</span>
+                <input type="password" placeholder="Enter Password Here.." class="form-control"
+                 name="password" required>
               </div>
 
               <div class="form-group">
-                <label>Confirm Password</label><span class="error">* <?php
-                 echo $confirmpasswordErr ;?></span>
-                <input type="password" placeholder="Enter Confirm Password Here.." class="form-control" name="confirmpassword">
+                <label>Confirm Password</label><span class="error">*</span>
+                <input type="password" placeholder="Enter Confirm Password Here.." class="form-control" name="confirmpassword" required>
               </div>
                        
                 
       <div class="form-group">
-                <label>Job Category<small> (select one)</small></label><span class="error">* <?php echo $jobcategoryErr ;?></span>
-          <select class="form-control" id="select" placeholder="Enter Job catagory Here.."  name="jobcategory">
+                <label>Job Category<small> (select one)</small></label><span class="error">*</span>
+          <select class="form-control" id="select" placeholder="Enter Job catagory Here.."  
+          name="jobcategory"  required>
                 <option></option>
+                <option>Bank</option>
+                <option>IT</option>
+                <option>Engineering</option>
+                <option>Garments</option>
+                <option>Industry</option>
+                <option>Hospital</option>
+                <option>NGO</option>
+                <option>Education</option>
+                <option>Commercial</option>
                 <option>Accounting</option>
-        				<option>Bank</option>
-        				<option>Education</option>
-        				<option>Engineer</option>
-        				<option>Garments</option>
-        				<option>Management</option>
-        				<option>IT</option>
+                <option>Support</option>
+                <option>Marketing</option>
         			
           </select>
         </div>  
               
 			  
 			  <div class="form-group">
-                <label>Gender </label><span class="error">* <?php echo $genderErr;?></span>
+                <label>Gender </label><span class="error">*</span>
                 <br>
-                    <input type="radio" name="gender" value="male"> Male
-                    <input type="radio" name="gender" value="female"> Female
+                    <input type="radio" name="gender" value="male" required> Male
+                    <input type="radio" name="gender" value="female" required> Female
               </div>
             
 
             <div class="form-group">
-             <label>Phone Number</label><span class="error">* <?php 
-             echo $phonenumberErr;?></span>
-             <input type="text" placeholder="Enter Phone Number Here.." class="form-control" name="phonenumber">
+             <label>Phone Number</label><span class="error">*</span>
+             <input type="text" placeholder="Enter Phone Number Here.." class="form-control" 
+             name="phonenumber" required>
              </div>  
 
             <div class="form-group">
-              <label>Email Address</label><span class="error">* <?php echo $emailErr;?></span>
-              <input type="email" placeholder="Enter Email Address Here.." class="form-control" name="email">
-            </div>  
+              <label>Email Address</label><span class="error">*</span>
+              <input type="email" placeholder="Enter Email Address Here.." class="form-control" 
+              name="email" required>
+            </div>
 
-            <input type="checkbox" value="" name="check1" required> I agree to the Jobsite.com <font color="blue" > Terms of use.</font><br>	
-            <input type="checkbox" value="" name="check2"> Subscribe to Jobsite Newsletter. <br><br>
+            <div class="form-group">
+              <label>Profile Picture</label><span class="error">* (only upload format: JPG)</span>
+              <input type="file" placeholder=" " class="form-control" name="image" >
+            </div> 
 
-            <button type="submit" class="btn btn-default" name="submit">Submit</button>         
+            <input type="checkbox" value="" name="check1" required> I agree to the Jobsite.com <font color="blue" > Terms of use.</font><br><br>
+            <!-- <input type="checkbox" value="" name="check2"> Subscribe to Jobsite Newsletter. <br><br> -->
+
+            <button type="submit" class="btn btn-primary" name="submit">Submit</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <button type="reset" class="btn btn-danger" name="reset">Reset</button>      
           </div>
         </form> 
         </div>
   </div>
 </div>
 
-
-
-<?php
-/*
-
-
-        echo  "Name:".$name."<br>";
-        echo  "Name:".$username."<br>";
-        echo  "Name:".$password."<br>";
-        echo  "Name:".$confirmpassword."<br>"; 
-        echo  "Name:".$jobcategory."<br>";
-        echo  "Name:".$gender."<br>";
-        echo  "Name:".$phonenumber."<br>";
-        echo  "Name:".$email."<br>";
-       */ 
-
-?>
-
-
+  <?php include('footer.php');  ?> 
 </body>
 </html>

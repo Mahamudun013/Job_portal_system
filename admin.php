@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin</title>
+  <title>Admin Login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicon -->
@@ -10,17 +10,18 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
   <link href='//fonts.googleapis.com/css?family=Arsenal' rel='stylesheet'>
   <!-- CSS -->
+
   <style type="text/css">
-    /*login and registration css*/
+ /*login and registration css*/
 .login_box{
   width: 325px;
   min-height: auto;
-  margin: 0% auto;
+  margin: 100px auto;
   padding: 20px;
   border-radius: 5px;
   box-shadow: inset 0 0 5px gray;
   background:  #E1E1E1;
-  /*#BDBDBD*/
+
 }
 .login_head{
   text-align: center;
@@ -30,16 +31,8 @@
   width: 150px;
   height: 150px;
 }
-/*.login_head h2{
-  color: #77D330;
-  line-height: 0px;
-  font-family: 'Arsenal',sans-serif;
-  font-size: 33px;
-}*/
-/*.login_head hr{
-  line-height: 0px;
-  color: green;
-}*/
+
+
 .login_body{
   margin-top: 30px;
   text-align: center;
@@ -57,7 +50,7 @@
 .login_box .btn{
   width: 290px;
   padding: 8px;
-  background: #638E9B;
+  background: #1670B9;
   cursor: pointer;
   color: #fff;
   font-size: 17px;
@@ -75,8 +68,12 @@
 .login_box a:hover{
   color: green;
 }
-  </style>
+body{
+  background-color: #A65656;
+}
+</style>
 </head>
+
 <body class="custom">
   
   <div class="cbody">
@@ -88,19 +85,17 @@
       </div>
       <div class="login_body">
         <form action="functions.php" method="post">
-          <input type="text" name="admin" class="input" placeholder="admin name"> <br>
-          <input type="password" name="pwd" class="input" placeholder="Password">
+          <input type="text" name="admin" class="input" placeholder="Admin Username"> <br>
+          <input type="password" name="pwd" class="input" placeholder="Admin Password">
           <button class="btn" name="adminLogin">Login</button>
         </form>
       </div>
       <br>
-      <!-- <a href="registration.php">New Member? Sign up here</a><br> -->
-      <!-- <a href="">Forgot the Password?</a> -->
+    
     </div>
     
   </div>
 
-  <script type="text/javascript"></script>
 
 </body>
 </html>

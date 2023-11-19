@@ -9,7 +9,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 
-   <script>tinymce.init({ selector:'textarea' });</script>
+   <!-- <script>tinymce.init({ selector:'textarea' });</script> -->
 
 
   <style>
@@ -151,6 +151,45 @@
            $website = test_input($_POST["website"]);
         }
 
+         if($password===$confirmpassword){
+
+           }else{
+             echo "<script> alert('Two password are not matched!')</script>";
+                   echo '<script>location="employer_register.php"</script>';
+                   die();
+
+           }
+
+
+        $file=$_FILES['image'];
+
+        $proImage=$_FILES['image']['name'];
+        $fileTmpName=$_FILES['image']['tmp_name'];
+        $imageSize=$_FILES['image']['size'];
+
+             
+        $fileExt=explode(".", $proImage);
+        $fileActualExt=strtolower(end($fileExt));
+        $newImageName=$username.".".$fileActualExt;
+        $fileDes='empImage/'.$newImageName;
+
+        $valitExt=array('jpg');
+
+        if(in_array($fileActualExt, $valitExt) && $imageSize < 2000000)
+        {
+
+            move_uploaded_file($fileTmpName, $fileDes);
+
+
+        }
+        else{
+                   echo "<script> alert('Please, upload valid image format !')</script>";
+                   echo '<script>location="employer_register.php"</script>';
+                   die();
+
+        }
+
+
 
     }
 
@@ -164,43 +203,59 @@
     }
 
 
-?>
-
-
-<?php 
  
-if(isset($_POST["submit"]))
+ if(isset($_POST["submit"]))
  {
 
- $conn= mysqli_connect("localhost","root","","job_site");
+ 
+      include('database.php');  // Connect database
 
-  if($conn)
+  if($connect)
   {
 
-      echo "Database Connected"."<br><br>";
+
+        $checkName=$username;
+        $check=" SELECT * FROM employer_table WHERE username='$checkName' " ;
+
+        $find=mysqli_query($connect,$check);
+        
+        if(mysqli_num_rows($find)>0){
+
+          echo '<script>alert("Sorry ! This username already exist. Use another one.") </script>';
+          echo '<script> location="employer_register.php"</script>';
+        }
+
+     
     
-       $sql="INSERT INTO employer_table(name,username,password,confirm_password,company_name,company_category,address,city,zip,phone_number,email,website) VALUES('$name','$username','$password','$confirmpassword','$companyname','$companycategory','$address','$city','$zip','$phonenumber','$email','$website') ";
+       $sql="INSERT INTO employer_table(name,username,password,confirm_password,company_name,
+       company_category,address,city,zip,phone_number,email,website,emp_pic) VALUES('$name','$username',
+       '$password','$confirmpassword','$companyname','$companycategory','$address','$city','$zip',
+       '$phonenumber','$email','$website','$fileDes') " ;
 
 
-     $insert=mysqli_query($conn,$sql);
+     $insert=mysqli_query($connect,$sql);
   
     if($insert)
     {
-          echo "Data Inserted"."<br>";
+
+        echo '<script>alert("Congratulations ! Successfully Registered.") </script>';
+
     }
+
     else
-    {
-
-       echo "Data NOT inserted"."<br>";
+    {   
+       echo '<script>alert("Sorry ! Submission Unsuccessfully.") </script>';
+      
     }
   
   
-  }
+   }
 
 
-  mysqli_close($conn);
+  mysqli_close($connect);
 
 }
+
 
 ?>
 
@@ -209,19 +264,20 @@ if(isset($_POST["submit"]))
     <h1 class="well">Employer Registration Form</h1>
   <div class="col-lg-12 well">
   <div class="row">
-        <form action="#" method="post">
+        <form action="#" method="post" enctype="multipart/form-data" >
           <div class="col-sm-12">
             
             <div class="row">
               <div class="col-sm-6 form-group">
                 <label>Name</label><span class="error">* <?php echo $nameErr;?></span>
-                <input type="text" placeholder="Enter Name Here.." class="form-control" name="name">
+                <input type="text" placeholder="Enter Name Here.." class="form-control" name="name" required >
               </div>
 
 
               <div class="col-sm-6 form-group">
                 <label>Username</label><span class="error">* <?php echo $usernameErr ;?></span>
-                <input type="text" placeholder="Enter Username Here.." class="form-control" name="username">
+                <input type="text" placeholder="Enter Username Here.." class="form-control"
+                 name="username" required >
               </div>
             </div> 
 
@@ -229,13 +285,15 @@ if(isset($_POST["submit"]))
             <div class="row">
               <div class="col-sm-6 form-group">
                 <label>Password</label><span class="error">* <?php echo $passwordErr;?></span>
-                <input type="password" placeholder="Enter Password Here.." class="form-control" name="password">
+                <input type="password" placeholder="Enter Password Here.." class="form-control" 
+                name="password" required >
               </div>
 
               <div class="col-sm-6 form-group">
                 <label>Confirm Password</label><span class="error">* <?php
                  echo $confirmpasswordErr ;?></span>
-                <input type="password" placeholder="Enter Confirm Password Here.." class="form-control" name="confirmpassword">
+                <input type="password" placeholder="Enter Confirm Password Here.." class="form-control" 
+                name="confirmpassword" required >
               </div>
             </div> 
 
@@ -243,21 +301,29 @@ if(isset($_POST["submit"]))
 
             <div class="row">
               <div class="col-sm-6 form-group">
-                <label>Company Name</label><span class="error">* <?php echo $companynameErr;?></span>
-                <input type="text" placeholder="Enter Company Name Here.." class="form-control" name="companyname">
+               <label>Company Name</label><span class="error">* <?php echo $companynameErr;?></span>
+               <input type="text" placeholder="Enter Company Name Here.." class="form-control" 
+               name="companyname" required > 
               </div>    
              
               <div class="col-sm-6 form-group">
-                <label>Company Category<small> (select one)</small></label><span class="error">* <?php echo $companycategoryErr ;?></span>
-             <select class="form-control" id="select" placeholder="Enter Company category Here.."  name="companycategory">
+                <label>Company Category<small> (select one)</small></label><span class="error">* <?php 
+                echo $companycategoryErr ;?></span>
+             <select class="form-control" id="select" placeholder="Enter Company category Here.."  name="companycategory" >
                 <option></option>
                 <option>Bank</option>
                 <option>IT</option>
+                <option>Engineering</option>
                 <option>Garments</option>
                 <option>Industry</option>
-                <option>Engineering</option>
-                <option>University</option>
-                <option>School</option>
+                <option>Hospital</option>
+                <option>NGO</option>
+                <option>Education</option>
+                <option>Commercial</option>
+                <option>Accounting</option>
+                <option>Support</option>
+                <option>Marketing</option>
+                
               </select>
              </div>  
 
@@ -266,7 +332,8 @@ if(isset($_POST["submit"]))
 
             <div class="form-group">
               <label>Address</label><span class="error">* <?php echo $addressErr;?></span>
-              <textarea placeholder="Enter Address Here.." rows="3" class="form-control" name="address"></textarea>
+              <textarea placeholder="Enter Address Here.." rows="3" class="form-control" 
+              name="address" > </textarea>
             </div>  
 
             <div class="row">
@@ -286,24 +353,34 @@ if(isset($_POST["submit"]))
 
             <div class="form-group">
              <label>Phone Number</label><span class="error">* <?php echo $phonenumberErr;?></span>
-             <input type="text" placeholder="Enter Phone Number Here.." class="form-control" name="phonenumber">
+             <input type="text" placeholder="Enter Phone Number Here.." class="form-control" 
+             name="phonenumber" required >
              </div>    
             <div class="form-group">
               <label>Email Address</label><span class="error">* <?php echo $emailErr;?></span>
-              <input type="email" placeholder="Enter Email Address Here.." class="form-control" name="email">
+              <input type="email" placeholder="Enter Email Address Here.." class="form-control" 
+              name="email" required >
             </div>  
             <div class="form-group">
               <label>Website</label><span class="error">* <?php echo $websiteErr;?></span>
-              <input type="text" placeholder="Enter Website Name Here.." class="form-control" name="website">
+              <input type="text" placeholder="Enter Website Name Here.." class="form-control" 
+              name="website" required >
             </div>
 
-            <button type="submit" class="btn btn-default" name="submit">Submit</button>         
+            <div class="form-group">
+              <label>Profile Picture</label><span class="error">* (only upload format: JPG)</span>
+              <input type="file" placeholder=" " class="form-control" name="image" >
+            </div> 
+
+            <button type="submit" class="btn btn-primary" name="submit">Submit</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <button type="reset" class="btn btn-danger" name="reset">Reset</button>
+
           </div>
         </form> 
         </div>
   </div>
   </div>
 
-
+<?php include('footer.php');  ?> 
 </body>
 </html>

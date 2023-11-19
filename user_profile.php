@@ -20,14 +20,18 @@
   <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
   <script src="http://maps.googleapis.com/maps/api/js"></script>
   
  
  </head>
  <style>
  
-  
-  
   .al{
 	  border:1px solid black;
 	  text:center;
@@ -51,18 +55,18 @@
   .jumbotron {
       margin-bottom: 0;
     }
-	.modal-header, .a, .close {
-      background-color: #5cb85c;
-      color:white !important;
-      text-align: center;
-      font-size: 30px;
-  }
-  .modal-body{
-  color:black;
-  }
-  .modal-footer {
-      background-color: #f9f9f9;
-  }
+
+    nav{
+      margin-bottom: 0px;
+    }
+
+    #img{
+      float:right;
+      margin-right: 100px;
+      margin-bottom: 8px;
+    }
+    
+
  </style>
  
  <body>
@@ -100,9 +104,9 @@
 
     <ul class="nav navbar-nav navbar-right">
 
-      
+      <li><a href="interview_invitation.php"><span class="glyphicon glyphicon-envelope"></span> Invitation</a></li>
 
-      <li><a href="user_home.php"><span class="glyphicon glyphicon-search"></span> Apply Job</a></li>
+      <li><a href="upload_cv.php"><span class="glyphicon glyphicon-plus-sign"></span> CV</a></li>
       
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" 
         href="#"><?php echo $_SESSION['username'];?> &nbsp<span class="caret"></span></a>
@@ -115,14 +119,17 @@
     </ul>
   </div>
 </nav>	
-  <?php
-        echo "<div class='jumbotron'>
+        
+      <div class='jumbotron'>
+       
         <div class='container text-center'>
-             <h1>Hi,".$_SESSION['username']."</h1><p>Member of Jobsite.com</p></div></div>";
-  ?>
+            <h1>Hi, <?php echo $_SESSION['username']; ?></h1><p>Member of Jobsite.com</p>
+          </div>
+        </div>
 
  <h3 class="al">Profile</h3>
  <div class="row content">
+   <div id="img"><img src="userImage/<?php echo $_SESSION['username'];?>.jpg" height="300px" width="250px"/> </div>
  
  <div class="col-sm-8" id="ala2">
 <div class="cotainer text-center">
