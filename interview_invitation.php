@@ -96,7 +96,7 @@
 
    <div class="col-md-10 col-md-offset-1">
     <div class="jumbotron">
-      <h3 id="head">Interview Call</h3>
+      <h3 id="head">Interview invitation</h3>
       <table class="table table-hover table-bordered">
         <thead >
           <th>Serial</th>
